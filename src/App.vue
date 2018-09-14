@@ -58,6 +58,9 @@ h1, h2, h3, h4, h5, h6, p, input, button, select, textarea {
 ul, li {
     list-style: none;
 }
+a {
+  text-decoration: none;
+}
 button,
 input,
 optgroup,

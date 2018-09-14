@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import About from './components/About.vue';
 import Success from './components/Success.vue';
 import Login from './components/Login.vue';
-import Base from './components/Base.vue';
+import Base from './components/Base/Base.vue';
 
 Vue.use(VueRouter);
 
