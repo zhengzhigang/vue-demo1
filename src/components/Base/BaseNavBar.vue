@@ -50,7 +50,7 @@ export default {
     right: 0;
     top: 0;
     background: rgba(76, 166, 217, 0.9);
-    z-index: 1;
+    z-index: 9;
     .logo {
         float: left;
         width: 236px;

@@ -219,6 +219,7 @@ export default {
     background: #2B3B52;
     overflow-y: scroll;
     overflow-x: hidden;
+    z-index: 10;
     &::-webkit-scrollbar {
         display: none;
     }

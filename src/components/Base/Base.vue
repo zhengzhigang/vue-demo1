@@ -1,8 +1,10 @@
 <template>
     <div class="base">
-        <BaseNavBar />
-        <BaseNav />
-        <div class="base-main"></div>
+        <base-nav-bar></base-nav-bar>
+        <base-nav></base-nav>
+        <div class="base-main">
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 <script>
@@ -16,5 +18,15 @@ export default {
     }
 }
 </script>
+<style lang="less" scoped>
+.base {
+    padding-left: 236px;
+    padding-top: 50px;
+    min-width: 1280px;
+    min-height: 100%;
+    overflow-y: scroll;
+}
+</style>
+
 
 
