@@ -4,6 +4,7 @@
             <div class="base-nav-item" v-for="(item, idx) in basenav" @click="sideBarAction(idx)" :class="{cur: currentNav === idx}">
                 <SlideBarItem :nav="item" :key="idx" />
             </div>
+            <p>ddashb</p>
         </div>
     </div>
 </template>
