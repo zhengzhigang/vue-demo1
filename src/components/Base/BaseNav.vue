@@ -1,10 +1,18 @@
 <template>
     <div class="base-nav">
         <div class="base-nav-wrapper">
+            <div class="user-panel">
+                <div class="user-img">
+                    <img :src="userInfo.portrait" alt="userInfo.name">
+                </div>
+                <div class="user-info">
+                    <h3 class="ellispsis">{{userInfo.name}}</h3>
+                    <p>Online</p>
+                </div>
+            </div>
             <div class="base-nav-item" v-for="(item, idx) in basenav" @click="sideBarAction(idx)" :class="{cur: currentNav === idx}">
                 <SlideBarItem :nav="item" :key="idx" />
             </div>
-            <p>ddashb</p>
         </div>
     </div>
 </template>
@@ -195,6 +203,11 @@ export default {
     components: {
         SlideBarItem
     },
+    props: {
+        userInfo: {
+            type: Object
+        }
+    },
     data () {
         return {
             basenav: navs,
@@ -214,7 +227,6 @@ export default {
     left: 0;
     top: 0;
     bottom: 0;
-    padding-top: 50px;
     width: 236px;
     background: #2B3B52;
     overflow-y: scroll;
@@ -250,6 +262,57 @@ export default {
                 &:hover {
                     color: #fff;
                 }
+            }
+        }
+    }
+    .user-panel {
+        position: relative;
+        width: 100%;
+        padding: 20px;
+        overflow: hidden;
+    }
+    .user-img {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        width: 67px;
+        height: 67px;
+        border-radius: 50%;
+        img {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 57px;
+            height: 57px;
+            border-radius: 50%;
+        }
+    }
+    .user-info {
+        min-width: 67px;
+        padding-left: 77px;
+        padding-top: 10px;
+        color: #fff;
+        line-height: 20px;
+        h3 {
+            font-size: 16px;
+            font-weight: normal;
+        }
+        p {
+            position: relative;
+            margin-top: 8px;
+            padding-left: 16px;
+            font-size: 14px;
+            color: #30D5D7;
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 6px;
+                left: 0;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #30D5D7
             }
         }
     }

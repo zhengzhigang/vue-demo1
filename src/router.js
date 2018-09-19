@@ -18,12 +18,14 @@ const routes = [
     children: [
       {
         path: '/home',
-        component: Home
+        component: Home,
+        alias: '/'
       }
     ]
   }
 ]
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
 

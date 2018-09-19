@@ -12,11 +12,13 @@
                 <a href="#">联系我们</a>
             </li>
             <li class="user">
-                <a href="#">丽都医疗</a>
+                <a href="#">{{userInfo.name}}</a>
                 <div class="dropdown-user">
                     <div class="user-header">
-                        <span class="img"></span>
-                        <p>丽都医疗</p>
+                        <span class="img">
+                            <img :src="userInfo.portrait" alt="userInfo.name">
+                        </span>
+                        <p>{{userInfo.name}}</p>
                     </div>
                     <div class="user-body">
                         <span class="user-btn">个人资料</span>
@@ -36,7 +38,12 @@
 </template>
 <script>
 export default {
-    name: 'BaseNavBar'
+    name: 'BaseNavBar',
+    props: {
+        userInfo: {
+            type: Object
+        }
+    }
 }
 </script>
 
@@ -99,10 +106,20 @@ export default {
             text-align: center;
             .img {
                 display: inline-block;
+                position: relative;
                 width: 50px;
                 height: 50px;
                 border-radius: 100%;
                 background: #fff;
+                img {
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                }
             }
         }
         .user-body {
