@@ -41,6 +41,9 @@ export default {
     min-height: 100%;
     overflow-y: scroll;
 }
+.base-main {
+    min-height: 1000px;
+}
 </style>
 
 

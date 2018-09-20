@@ -10,10 +10,45 @@
         </div>
         <div class="section_02 clearfix">
             <div class="left">
-                <div class="notice"></div>
+                <div class="notice">
+                    <h3>更美公告<router-link class="more" to="/">查看全部 ></router-link></h3>
+                    <ul class="notice-list">
+                        <li class="notice-item" v-for="item in noticeList.slice(0, 3)" :key="item.id">
+                            <router-link to="/">
+                                <h4 class="title">【公告】{{item.title}}<span class="date">{{item.date}}</span></h4>
+                                <p class="content ellipsis">{{item.content}}</p>
+                            </router-link>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="righ">
-                <div class="bridge"></div>
+            <div class="right">
+                <div class="bridge">
+                    <h3>更美商桥<router-link class="more" to="/">查看全部 ></router-link></h3>
+                    <div class="bridge-list">
+                        <div class="bridge-item">
+                            <span class="number">
+                                &yen;<z-countup :start="0" :end="Number(1000)" :duration="2" :decimal="'.'" :decimalNum="2"></z-countup>
+                            </span>
+                            <span class="name">
+                                账户余额
+                            </span>
+                        </div>
+                        <div class="bridge-item">
+                            <span class="number">
+                                &yen;<z-countup :start="0" :end="Number(1000)" :duration="2" :decimal="'.'" :decimalNum="2"></z-countup>
+                            </span>
+                            <span class="name">
+                                累计消费
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section_03">
+            <div class="data-board">
+                <h3>更美公告<router-link class="more" to="/">查看全部 ></router-link></h3>
             </div>
         </div>
         <z-toast :show.sync="showZToast" :text="'提示信息'"></z-toast>
@@ -22,11 +57,14 @@
 <script>
 import ZButton from '@/UIComponents/ZButton'
 import ZToast from '@/UIComponents/ZToast'
+import ZCountup from '@/UIComponents/ZCountup'
+
 export default {
     name: 'home',
     components: {
         ZButton,
-        ZToast
+        ZToast,
+        ZCountup
     },
     data () {
         return {
@@ -34,12 +72,17 @@ export default {
                 orderNum: '',
                 orderCode: ''
             },
-            showZToast: false
+            showZToast: false,
+            noticeList: []
         }
     },
     created () {
         this.$http.get('/goods/list').then(res => {
             let {data} = res;
+        });
+        this.$http.get('/notice/list').then(res => {
+            let {data} = res;
+            this.noticeList = data;
         });
     },
     methods: {
@@ -109,13 +152,15 @@ export default {
 }
 .section_02 {
     position: relative;
+    margin-bottom: 30px;
+    padding-right: 464px;
     .left, .right {
         min-height: 299px;
         padding: 16px 30px 30px;
         border-top: 4px solid transparent;
+        background: #fff;
     }
     .left {
-        padding-right: 464px;
         border-color: #A6E1E7;
     }
     .right {
@@ -124,6 +169,74 @@ export default {
         top: 0;
         right: 0;
         border-color: #4CA6D9;
+    }
+    h3 {
+        line-height: 24px;
+        font-size: 20px;
+        font-weight: normal;
+    }
+    .more {
+        float: right;
+        font-size: 16px;
+        color: #2A80B0;
+    }
+    .notice-item {
+        display: block;
+        padding: 12px 0;
+        border-bottom: 1px solid #f0f2f3;
+        .title {
+            position: relative;
+            margin-left: -8px;
+            font-size: 16px;
+            color: #333;
+            line-height: 24px;
+            padding-right: 145px;
+            .date {
+                position: absolute;
+                right: 0;
+                font-size: 14px;
+                color: #c3c3c3;
+            }
+        }
+        .content {
+            font-size: 14px;
+            line-height: 22px;
+            color: #676767;
+        }
+    }
+    .bridge-item {
+        padding-top: 32px;
+        .number, .name {
+            display: block;
+        }
+        .number {
+            font-size: 36px;
+            line-height: 44px;
+            color: #2a80b0;
+        }
+        .name {
+            font-size: 14px;
+            line-height: 22px;
+            color: #676767;
+        }
+    }
+}
+.section_03 {
+    .data-board {
+        padding: 16px 30px 30px;
+        margin-bottom: 3px;
+        border-top: 4px solid #a5b1c1;
+        background: #fff;
+        h3 {
+            line-height: 24px;
+            font-size: 20px;
+            font-weight: normal;
+        }
+        .more {
+            float: right;
+            font-size: 16px;
+            color: #2A80B0;
+        }
     }
 }
 </style>

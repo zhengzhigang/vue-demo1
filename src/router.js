@@ -17,7 +17,7 @@ const routes = [
     component: Base,
     children: [
       {
-        path: '/home',
+        path: 'home',
         component: Home,
         alias: '/'
       }
