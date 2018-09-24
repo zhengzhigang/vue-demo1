@@ -13,7 +13,7 @@ export default {
   name: 'app',
   // components: {
   //   HelloWorld
-  // }
+  // },
 }
 </script>
 
@@ -60,6 +60,12 @@ ul, li {
 }
 a {
   text-decoration: none;
+}
+hr {
+  margin: 20px 0;
+  height: 5px;
+  background: lightblue;
+  border: none;
 }
 button,
 input,
@@ -108,7 +114,6 @@ button:-moz-focusring,
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
   margin-bottom: 40px;

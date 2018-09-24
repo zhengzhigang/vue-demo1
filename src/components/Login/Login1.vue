@@ -1,6 +1,7 @@
 <template>
     <div class="login" :class="method">
-        <h1>更美医生后台</h1>
+        <h1>更美医生后台1</h1>
+        <H3>{{$route.params.userid}}</H3>
         <form>
             <template v-if="method == 'password'">
                 <div class="field name">
@@ -39,9 +40,9 @@
     </div>
 </template>
 <script>
-import globalClick from '../util/globalClick'
+import globalClick from '../../util/globalClick'
 export default {
-    name: 'Login',
+    name: 'Login1',
     data () {
         return {
             method: 'password',
@@ -85,6 +86,13 @@ export default {
             this.phonePrefix = item.number;
             this.isDropShow = false;
         }
+    },
+    beforeRouteEnter: (to, from, next) =>{
+        next();
+    },
+    beforeRouteLeave: (to, from, next) =>{
+        alert('确认要离开吗');
+        next();
     }
 }
 </script>
