@@ -49,7 +49,15 @@
         <div class="section_03">
             <div class="data-board">
                 <h3>更美公告<router-link class="more" to="/">查看全部 ></router-link></h3>
+                {{state}}
+                <demo></demo>
             </div>
+        </div>
+        <div>
+            <h3>递归组件实现树结构</h3>
+            <ul class="test1">
+                <z-multilevelmenu v-for="(item, index) in tree" :idx="index" :item="item" :customClass="'test1-item'"></z-multilevelmenu>
+            </ul>
         </div>
         <z-toast :show.sync="showZToast" :text="'提示信息'"></z-toast>
     </div>
@@ -58,13 +66,17 @@
 import ZButton from '@/UIComponents/ZButton'
 import ZToast from '@/UIComponents/ZToast'
 import ZCountup from '@/UIComponents/ZCountup'
+import ZMultilevelmenu from '@/UIComponents/ZMultilevelmenu'
+import Demo from '@/components/Home/Demo'
 
 export default {
     name: 'home',
     components: {
         ZButton,
         ZToast,
-        ZCountup
+        ZCountup,
+        Demo,
+        ZMultilevelmenu
     },
     data () {
         return {
@@ -73,7 +85,43 @@ export default {
                 orderCode: ''
             },
             showZToast: false,
-            noticeList: []
+            noticeList: [],
+            state: this.$store.state,
+            tree: [{
+                label: "一级菜单",
+                test:1,
+                children: [{
+                    label: "二级菜单",
+                    test:2,
+                    children: [{
+                        label: "三级菜单",
+                        test:3
+                        },{
+                        label: "三级菜单",
+                        test:3
+                        },{
+                        label: "三级菜单",
+                        test:3
+                    }]
+                }]
+            },{
+                label: "一级菜单",
+                test:1,
+                children: [{
+                    label: "二级菜单",
+                    test:2,
+                    children: [{
+                        label: "三级菜单",
+                        test:3
+                        },{
+                        label: "三级菜单",
+                        test:3
+                        },{
+                        label: "三级菜单",
+                        test:3
+                    }]
+                }]
+            }]
         }
     },
     created () {
