@@ -60,6 +60,14 @@
             </ul>
         </div>
         <z-toast :show.sync="showZToast" :text="'提示信息'"></z-toast>
+        <!-- <swiper></swiper> -->
+        <div>
+            <input type="text" :value="checkedEmoji">
+            <button @click="getEmoji">显示emoji</button>
+        </div>
+        <div v-if="showEmoji">
+            <span v-for="e in emoji" @click="checkedEmojiFun">{{e}}</span>
+        </div>
     </div>
 </template>
 <script>
@@ -68,6 +76,9 @@ import ZToast from '@/UIComponents/ZToast'
 import ZCountup from '@/UIComponents/ZCountup'
 import ZMultilevelmenu from '@/UIComponents/ZMultilevelmenu'
 import Demo from '@/components/Home/Demo'
+import Swiper from '@/components/Home/Swiper'
+var emoji = require('node-emoji');
+var json = require('./emoji.json');
 
 export default {
     name: 'home',
@@ -76,7 +87,8 @@ export default {
         ZToast,
         ZCountup,
         Demo,
-        ZMultilevelmenu
+        ZMultilevelmenu,
+        Swiper
     },
     data () {
         return {
@@ -95,7 +107,7 @@ export default {
                     test:2,
                     children: [{
                         label: "三级菜单",
-                        test:3
+                        test:3,
                         },{
                         label: "三级菜单",
                         test:3
@@ -121,7 +133,10 @@ export default {
                         test:3
                     }]
                 }]
-            }]
+            }],
+            emoji: [],
+            showEmoji: false,
+            checkedEmoji: ''
         }
     },
     created () {
@@ -134,6 +149,15 @@ export default {
         });
     },
     methods: {
+        getEmoji () {
+            for (var i in json) {
+                this.emoji.push(emoji.get(i));
+            }
+            this.showEmoji = !this.showEmoji;
+        },
+        checkedEmojiFun (e) {
+            this.checkedEmoji = e.target.innerText;
+        },
         submitOrderInfo () {
             let validate = this.validateOrderInfo();
             if (validate.error) {

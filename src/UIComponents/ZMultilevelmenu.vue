@@ -1,14 +1,14 @@
 <template>
-        <li @click.stop="toggle" :key="idx" :class="customClass">
-            <a>{{item.label}}{{item.test}}</a>
-            <ul :class="item.test==1?'test2':'test3'">
-                <simple3 v-if="item.children" v-for="(a, index) in item.children" :item="a" :class="a.test==2?'test2-item':'test3-item'" v-show="showChild" :key="index"></simple3>
-            </ul>
-        </li>
+    <li @click.stop="toggle" :key="idx" :class="customClass">
+        <a>{{item.label}}</a>
+        <ul :class="item.test==1?'test2':'test3'">
+            <z-multilevelmenu v-if="item.children" v-for="(a, index) in item.children" :item="a" :class="a.test==2?'test2-item':'test3-item'" v-show="showChild" :key="index"></z-multilevelmenu>
+        </ul>
+    </li>
 </template>
 <script>
   export default{
-    name: "simple3",
+    name: "ZMultilevelmenu",
     props: {
         item: {
             type: Object
