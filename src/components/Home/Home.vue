@@ -78,7 +78,7 @@ import ZMultilevelmenu from '@/UIComponents/ZMultilevelmenu'
 import Demo from '@/components/Home/Demo'
 import Swiper from '@/components/Home/Swiper'
 var emoji = require('node-emoji');
-var json = require('./emoji.json');
+var json = require('./emojis.json');
 
 export default {
     name: 'home',
@@ -150,8 +150,8 @@ export default {
     },
     methods: {
         getEmoji () {
-            for (var i in json) {
-                this.emoji.push(emoji.get(i));
+            for (var i = 0; i < json.symbols.length; i++) {
+                this.emoji.push(emoji.get(json.symbols[i]));
             }
             this.showEmoji = !this.showEmoji;
         },
