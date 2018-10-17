@@ -61,12 +61,9 @@
         </div>
         <z-toast :show.sync="showZToast" :text="'提示信息'"></z-toast>
         <!-- <swiper></swiper> -->
-        <div>
-            <input type="text" :value="checkedEmoji">
-            <button @click="getEmoji">显示emoji</button>
-        </div>
-        <div v-if="showEmoji">
-            <span v-for="e in emoji" @click="checkedEmojiFun">{{e}}</span>
+        <div @click="change_a">
+            <h1>{{a.a}}</h1>
+            <h2>{{b}}</h2>
         </div>
     </div>
 </template>
@@ -77,8 +74,6 @@ import ZCountup from '@/UIComponents/ZCountup'
 import ZMultilevelmenu from '@/UIComponents/ZMultilevelmenu'
 import Demo from '@/components/Home/Demo'
 import Swiper from '@/components/Home/Swiper'
-var emoji = require('node-emoji');
-var json = require('./emojis.json');
 
 export default {
     name: 'home',
@@ -134,9 +129,10 @@ export default {
                     }]
                 }]
             }],
-            emoji: [],
-            showEmoji: false,
-            checkedEmoji: ''
+            a: {
+                a: 'a'
+            },
+            b: ''
         }
     },
     created () {
@@ -148,22 +144,24 @@ export default {
             this.noticeList = data;
         });
     },
+    watch: {
+        a: {
+            handler () {
+                alert(3)
+            },
+            deep: true,
+            immediate: true
+        }
+    },
     methods: {
-        getEmoji () {
-            for (var i = 0; i < json.symbols.length; i++) {
-                this.emoji.push(emoji.get(json.symbols[i]));
-            }
-            this.showEmoji = !this.showEmoji;
-        },
-        checkedEmojiFun (e) {
-            this.checkedEmoji = e.target.innerText;
+        change_a () {
+            this.a.a = 'b';
         },
         submitOrderInfo () {
             let validate = this.validateOrderInfo();
             if (validate.error) {
                 this.showZToast = true;
             }
-
         },
         validateOrderInfo () {
             if (this.orderInfo.orderNum === '') {
