@@ -1,244 +1,216 @@
 <template>
-    <div class="home">
-        <div class="order-validate clearfix section_01">
-            <h3 class="order-validate-title">订单验证</h3>
-            <div class="order-validate-wraper">
-                <z-button :className="'order-validate-button'" :text="'确定'" @z-button-event="submitOrderInfo">确定</z-button>
-                <input class="order-num" type="text" placeholder="请输入订单号" v-model="orderInfo.orderNum" />
-                <input class="order-code" type="text" placeholder="请输入验证码"  v-model="orderInfo.orderCode" />
-            </div>
-        </div>
-        <div class="section_02 clearfix">
-            <div class="left">
-                <div class="notice">
-                    <h3>更美公告<router-link class="more" to="/">查看全部 ></router-link></h3>
-                    <ul class="notice-list">
-                        <li class="notice-item" v-for="item in noticeList.slice(0, 3)" :key="item.id">
-                            <router-link to="/">
-                                <h4 class="title">【公告】{{item.title}}<span class="date">{{item.date}}</span></h4>
-                                <p class="content ellipsis">{{item.content}}</p>
-                            </router-link>
-                        </li>
-                    </ul>
+    <div>
+        <input type="hidden" id="params" data-type="1" data-img_url="" data-download_url="http://alpha-s.iyanzhi.com/testbuild/test/pengyouquan/gm_alpha_pengyouquan.apk" data-second="" data-default_url="&#x4E0D;&#x8DF3;&#x8F6C;" data-title="">
+
+        <div class="wrap" id="js_download">
+            <div class="box">
+                <div class="logo">
+                    <img src="../../assets/logo@2x.png">
+                </div>
+                <div class="download">
+                    <span class="download-btn" id="dowonloadBtn" @click="download">立即下载</span>
                 </div>
             </div>
-            <div class="right">
-                <div class="bridge">
-                    <h3>更美商桥<router-link class="more" to="/">查看全部 ></router-link></h3>
-                    <div class="bridge-list">
-                        <div class="bridge-item">
-                            <span class="number">
-                                &yen;<z-countup :start="0" :end="Number(1000)" :duration="2" :decimal="'.'" :decimalNum="2"></z-countup>
-                            </span>
-                            <span class="name">
-                                账户余额
-                            </span>
-                        </div>
-                        <div class="bridge-item">
-                            <span class="number">
-                                &yen;<z-countup :start="0" :end="Number(1000)" :duration="2" :decimal="'.'" :decimalNum="2"></z-countup>
-                            </span>
-                            <span class="name">
-                                累计消费
-                            </span>
-                        </div>
-                    </div>
-                </div>
+            <div class="mask" id="mask">
+                <img src="../../assets/guide.png">
             </div>
         </div>
-        <div class="section_03">
-            <div class="data-board">
-                <h3>更美公告<router-link class="more" to="/">查看全部 ></router-link></h3>
-            </div>
-        </div>
-        <z-toast :show.sync="showZToast" :text="'提示信息'"></z-toast>
     </div>
 </template>
 <script>
-import ZButton from '@/UIComponents/ZButton'
-import ZToast from '@/UIComponents/ZToast'
-import ZCountup from '@/UIComponents/ZCountup'
-
 export default {
-    name: 'home',
-    components: {
-        ZButton,
-        ZToast,
-        ZCountup
+    name: 'download',
+
+    computed: {
+        isWeixin ()
     },
-    data () {
-        return {
-            orderInfo: {
-                orderNum: '',
-                orderCode: ''
-            },
-            showZToast: false,
-            noticeList: []
-        }
-    },
-    created () {
-        this.$http.get('/goods/list').then(res => {
-            let {data} = res;
-        });
-        this.$http.get('/notice/list').then(res => {
-            let {data} = res;
-            this.noticeList = data;
-        });
-    },
+
     methods: {
-        submitOrderInfo () {
-            let validate = this.validateOrderInfo();
-            if (validate.error) {
-                this.showZToast = true;
-            }
+        download () {
 
-        },
-        validateOrderInfo () {
-            if (this.orderInfo.orderNum === '') {
-                return {
-                    error: '请输入订单号'
-                };
-            }
-            if (this.orderInfo.orderNum === '') {
-                return {
-                    error: '请输入验证码'
-                };
-            }
-            return {
-                error: null
-            }
         }
     }
 }
+
+    /**
+     @type 跳转方式：1：直接跳下载 2：有背景图点击下载 3：有背景图支持点击和自动下载
+     @img_url 背景图url
+     @download_url 安卓包的下载地址
+     @second 多少秒下载 默认是3秒
+     @default_url 在pc上的跳转地址 默认的是 http://www.igengmei.com 不跳转就填不跳转
+     **/
+    (function () {
+        // var sUserAgent = navigator.userAgent.toLowerCase(),
+        //         isWeixin = (sUserAgent.match(/micromessenger/i) == 'micromessenger'),
+        //         isIpad = (sUserAgent.match(/ipad/i) == 'ipad'),
+        //         isIphone = (sUserAgent.match(/iphone/i) == 'iphone'),
+        //         isAndroid = (sUserAgent.match(/android/i) == 'android'),
+        //         download = document.getElementById('dowonloadBtn'),
+        //         mask = document.getElementById('mask');
+        // //         params = document.getElementById('params'),
+        // //         type = Number(params.getAttribute('data-type')),
+        // //         imgUrl = params.getAttribute('data-img_url'),
+        // //         download_url = params.getAttribute('data-download_url'),
+        // //         second = params.getAttribute('data-second') * 1000 || 3000,
+        // //         defaulturl = params.getAttribute('data-default_url') || 'http://www.igengmei.com',
+        // //         title = params.getAttribute('data-title') || "like app-我的变美指南";
+        // // document.title = title;
+        // function downloadFn() {
+        //     if (isWeixin && isAndroid) {
+        //         download.style.display = 'block'
+        //     }
+        //     location.href = isAndroid ? download_url : 'https://itunes.apple.com/cn/app/id1442774408?mt=8';
+        // }
+
+        // download.addEventListener('click', downloadFn)
+        // switch (type) {
+        //     case 1: {
+        //         img.style.display = 'none';
+        //         downloadFn()
+        //         break;
+        //     }
+        //     case 2: {
+        //         img.setAttribute('src', imgUrl);
+        //         text.style.display = 'none';
+        //         break;
+        //     }
+        //     case 3: {
+        //         img.setAttribute('src', imgUrl);
+        //         text.style.display = 'none';
+        //         var timeFn = setTimeout(function () {
+        //             downloadFn()
+        //         }, isWeixin ? second : 1000);
+        //     }
+        // }
+        // download.addEventListener('click', function (e) {
+        //     if (isWeixin && isAndroid) {
+        //         tips.style.visibility = 'visible';
+        //     } else {
+        //         downloadFn()
+        //     }
+        // }, false);
+        // setTimeout(function () {
+        //     if (isWeixin && isAndroid) {
+        //         tips.style.visibility = 'visible';
+        //     }
+        // }, 1000)
+        // tips.addEventListener('click', function (e) {
+        //     this.style.visibility = 'hidden';
+        // }, false);
+
+        // if (isAndroid || isIphone || isIpad) {
+        //     isAndroid && (tips.style.backgroundImage = 'url("http://hera.s.igengmei.com/2017/09/25/6660e52253")');
+        // } else {
+        //     if (defaulturl == '不跳转') {
+        //         return false
+        //     } else {
+        //         location.href = defaulturl;
+        //     }
+        // }
+    })();
 </script>
-<style lang="less" scoped>
-.home {
-    position: relative;
-    width: 100%;
-    padding: 40px;
-    min-width: 960px;
-    min-width: 600px;
-}
-.order-validate {
-    margin-bottom: 30px;
-    padding: 30px;
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(14, 37, 49, 0.2);
-    h3 {
-        float: left;
-        font-size: 20px;
-        line-height: 40px;
+<style>
+    html, body {
+        height: 100%;
+        word-wrap: break-word;
     }
-    .order-validate-title {
-        float: left;
-    }
-    .order-validate-wraper {
-        float: right;
-        width: 90%;
-    }
-    .order-validate-button, .order-num, .order-code {
-        float: right;
-    }
-    .order-num, .order-code {
-        font-size: 14px;
-        width: 23.65%;
-        max-width: 333px;
-        height: 42px;
-        padding: 0 22px;
-        margin: 0 15px;
-        border: 1px solid #30D5D7;
-        border-radius: 0;
-    }
-}
-.section_02 {
-    position: relative;
-    margin-bottom: 30px;
-    padding-right: 464px;
-    .left, .right {
-        min-height: 299px;
-        padding: 16px 30px 30px;
-        border-top: 4px solid transparent;
-        background: #fff;
-    }
-    .left {
-        border-color: #A6E1E7;
-    }
-    .right {
-        position: absolute;
-        width: 434px;
-        top: 0;
-        right: 0;
-        border-color: #4CA6D9;
-    }
-    h3 {
-        line-height: 24px;
-        font-size: 20px;
-        font-weight: normal;
-    }
-    .more {
-        float: right;
-        font-size: 16px;
-        color: #2A80B0;
-    }
-    .notice-item {
-        display: block;
-        padding: 12px 0;
-        border-bottom: 1px solid #f0f2f3;
-        .title {
-            position: relative;
-            margin-left: -8px;
-            font-size: 16px;
-            color: #333;
-            line-height: 24px;
-            padding-right: 145px;
-            .date {
-                position: absolute;
-                right: 0;
-                font-size: 14px;
-                color: #c3c3c3;
-            }
-        }
-        .content {
-            font-size: 14px;
-            line-height: 22px;
-            color: #676767;
-        }
-    }
-    .bridge-item {
-        padding-top: 32px;
-        .number, .name {
-            display: block;
-        }
-        .number {
-            font-size: 36px;
-            line-height: 44px;
-            color: #2a80b0;
-        }
-        .name {
-            font-size: 14px;
-            line-height: 22px;
-            color: #676767;
-        }
-    }
-}
-.section_03 {
-    .data-board {
-        padding: 16px 30px 30px;
-        margin-bottom: 3px;
-        border-top: 4px solid #a5b1c1;
-        background: #fff;
-        h3 {
-            line-height: 24px;
-            font-size: 20px;
-            font-weight: normal;
-        }
-        .more {
-            float: right;
-            font-size: 16px;
-            color: #2A80B0;
-        }
-    }
-}
-</style>
 
+    html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, form, th, td, hr {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-width: 320px;
+        background: #eee;
+        color: #404040;
+        font: 14px/1.3 sans-serif;
+        outline: 0;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        -webkit-text-size-adjust: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    h1, h2, h3, h4, h5, h6, p, input, button, select, textarea {
+        font-size: 14px;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        outline: 0;
+    }
+
+    a, a:visited {
+        text-decoration: none;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    img {
+        max-width: 100%;
+        border: 0;
+    }
+
+    .wrap {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: url("../../assets/bj@2x.png") center top/100% auto no-repeat;
+    }
+
+    .box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate3d(-50%, -50%, 0);
+        -moz-transform: translate3d(-50%, -50%, 0);
+        -o-transform: translate3d(-50%, 50%, 0);
+        transform: translate3d(-50%, -50%, 0);
+    }
+
+    .logo, .download {
+        width: 240px;
+        margin: auto;
+    }
+
+    .logo {
+        width: 227px;
+        margin-bottom: 13px;
+    }
+
+    .logo img {
+        display: block;
+        width: 100%;
+    }
+
+    .download-btn {
+        display: block;
+        width:240px;
+        height:48px;
+        background:linear-gradient(90deg,rgba(93,121,255,1) 0%,rgba(186,102,254,1) 100%);
+        box-shadow:0px 8px 6px 0px rgba(114,125,255,0.2);
+        border-radius:24px;
+        line-height: 48px;
+        font-size:18px;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .mask {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, .6);
+        display: none;
+    }
+    .mask img {
+        display: block;
+        margin-top: 20px;
+        width: 100%;
+    }
+</style>
 
